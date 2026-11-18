@@ -1,6 +1,7 @@
 package br.edu.exemplo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.http.MediaType;
 class ProdutoControllerIntegrationTest {
  @Autowired MockMvc mockMvc;
  @Autowired ObjectMapper objectMapper;
+ // Usado apenas para sincronizar com o H2 (flush) e esvaziar o cache de 1º nível (clear) entre o
+ // POST e o GET: sem isso, com @Transactional, o findById do GET devolveria a mesma instância em memória.
+ @Autowired EntityManager entityManager;
 
  @Test @DisplayName("CT04 - Cadastro via API: POST /produtos retorna 200 com ID, nome e preço")
  void deveCadastrarProdutoPelaApi() throws Exception {
@@ -45,6 +49,9 @@ class ProdutoControllerIntegrationTest {
   JsonNode cadastrado = objectMapper.readTree(resultadoPost.getResponse().getContentAsString());
   assertTrue(cadastrado.path("id").isNumber(), "A resposta do POST deveria conter um ID numérico");
   long id = cadastrado.get("id").asLong();
+
+  entityManager.flush();
+  entityManager.clear();
 
   mockMvc.perform(get("/produtos/{id}", id).accept(MediaType.APPLICATION_JSON))
    .andExpect(status().isOk())
