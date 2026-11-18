@@ -11,7 +11,15 @@ public class Carrinho {
 
     private final List<Produto> produtos = new ArrayList<>();
 
+    /**
+     * Adiciona um produto ao carrinho.
+     *
+     * @throws IllegalArgumentException se o preço do produto for negativo (Requisito 5)
+     */
     public void adicionar(Produto produto) {
+        if (produto.getPreco() < 0) {
+            throw new IllegalArgumentException("Preço não pode ser negativo: " + produto.getNome());
+        }
         produtos.add(produto);
     }
 
