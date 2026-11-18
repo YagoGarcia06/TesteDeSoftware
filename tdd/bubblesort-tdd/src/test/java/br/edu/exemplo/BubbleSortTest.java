@@ -97,7 +97,7 @@ class BubbleSortTest {
     }
 
     @Test
-    @DisplayName("Deve ordenar vetor com todos os valores iguais")
+    @DisplayName("Deve manter vetor com todos os valores iguais")
     void deveManterVetorComValoresIguais() {
         BubbleSort bubbleSort = new BubbleSort(new int[]{4, 4, 4});
 
