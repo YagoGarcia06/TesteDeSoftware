@@ -15,8 +15,9 @@ public class Carrinho {
         produtos.add(produto);
     }
 
+    /** Remove uma ocorrência do produto informado; se ele não estiver no carrinho, nada muda. */
     public void remover(Produto produto) {
-        // Esqueleto mínimo só para compilar: ainda não implementado (RED)
+        produtos.remove(produto);
     }
 
     /** Soma dos preços de todos os produtos do carrinho. */
