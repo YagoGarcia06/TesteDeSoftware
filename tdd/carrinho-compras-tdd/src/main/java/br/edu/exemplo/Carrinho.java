@@ -9,7 +9,6 @@ public class Carrinho {
     }
 
     public void adicionar(Produto produto) {
-        // Mínimo para o Requisito 2: só existe um produto no carrinho
-        total = produto.getPreco();
+        total += produto.getPreco();
     }
 }
