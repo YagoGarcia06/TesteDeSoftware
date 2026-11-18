@@ -27,6 +27,10 @@ public class Produto {
     }
 
     public void retirarEstoque(int quantidade) {
-        
+        // Requisito 5: retirada maior que o disponível não altera o estoque
+        if (quantidade > this.quantidade) {
+            return;
+        }
+        this.quantidade -= quantidade;
     }
 }
