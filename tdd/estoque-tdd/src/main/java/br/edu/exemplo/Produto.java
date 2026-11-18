@@ -19,7 +19,11 @@ public class Produto {
     }
 
     public void adicionarEstoque(int quantidade) {
-
+        // Requisito 6: entrada negativa ou igual a zero não altera o estoque
+        if (quantidade <= 0) {
+            return;
+        }
+        this.quantidade += quantidade;
     }
 
     public void retirarEstoque(int quantidade) {
