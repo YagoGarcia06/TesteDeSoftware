@@ -27,8 +27,10 @@ public class Produto {
     }
 
     public void retirarEstoque(int quantidade) {
-        // Requisito 5: retirada maior que o disponível não altera o estoque
-        if (quantidade > this.quantidade) {
+        // Requisito 5: retirada maior que o disponível não altera o estoque.
+        // Validação extra (não pedida): retirada negativa aumentaria o estoque,
+        // então também é ignorada, no mesmo padrão do Requisito 6.
+        if (quantidade <= 0 || quantidade > this.quantidade) {
             return;
         }
         this.quantidade -= quantidade;
