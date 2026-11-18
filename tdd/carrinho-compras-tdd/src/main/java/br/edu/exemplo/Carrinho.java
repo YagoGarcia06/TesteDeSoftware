@@ -15,6 +15,10 @@ public class Carrinho {
         produtos.add(produto);
     }
 
+    public void remover(Produto produto) {
+        // Esqueleto mínimo só para compilar: ainda não implementado (RED)
+    }
+
     /** Soma dos preços de todos os produtos do carrinho. */
     public double getTotal() {
         double total = 0;

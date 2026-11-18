@@ -44,4 +44,19 @@ class CarrinhoTest {
 
         assertEquals(150.00, carrinho.getTotal(), DELTA);
     }
+
+    // Requisito 4 — Remover produto
+    @Test
+    @DisplayName("Requisito 4: remover o Mouse de um carrinho de R$ 150,00 deixa R$ 100,00")
+    void deveRemoverProduto() {
+        Carrinho carrinho = new Carrinho();
+        Produto teclado = new Produto("Teclado", 100.00);
+        Produto mouse = new Produto("Mouse", 50.00);
+        carrinho.adicionar(teclado);
+        carrinho.adicionar(mouse);
+
+        carrinho.remover(mouse);
+
+        assertEquals(100.00, carrinho.getTotal(), DELTA);
+    }
 }
