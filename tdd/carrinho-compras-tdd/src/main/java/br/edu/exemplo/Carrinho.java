@@ -9,6 +9,12 @@ import java.util.List;
  */
 public class Carrinho {
 
+    /** Valor a partir do qual a compra recebe desconto (Requisito 6). */
+    private static final double VALOR_MINIMO_DESCONTO = 500.00;
+
+    /** Percentual de desconto aplicado (10%). */
+    private static final double PERCENTUAL_DESCONTO = 0.10;
+
     private final List<Produto> produtos = new ArrayList<>();
 
     /**
@@ -28,15 +34,20 @@ public class Carrinho {
         produtos.remove(produto);
     }
 
-    /** Soma dos preços de todos os produtos do carrinho. */
+    /** Total a pagar: subtotal com 10% de desconto se for igual ou superior a R$ 500,00. */
     public double getTotal() {
-        double total = 0;
+        double subtotal = calcularSubtotal();
+        if (subtotal >= VALOR_MINIMO_DESCONTO) {
+            return subtotal - subtotal * PERCENTUAL_DESCONTO;
+        }
+        return subtotal;
+    }
+
+    private double calcularSubtotal() {
+        double subtotal = 0;
         for (Produto produto : produtos) {
-            total += produto.getPreco();
+            subtotal += produto.getPreco();
         }
-        if (total >= 500) {
-            total = total * 0.9;
-        }
-        return total;
+        return subtotal;
     }
 }
