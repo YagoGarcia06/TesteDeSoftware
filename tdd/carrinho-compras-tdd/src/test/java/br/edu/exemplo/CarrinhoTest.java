@@ -21,4 +21,15 @@ class CarrinhoTest {
 
         assertEquals(0, carrinho.getTotal(), DELTA);
     }
+
+    // Requisito 2 — Adicionar um produto
+    @Test
+    @DisplayName("Requisito 2: adicionar um Teclado de R$ 100,00 deixa total R$ 100,00")
+    void deveAdicionarUmProduto() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Teclado", 100.00));
+
+        assertEquals(100.00, carrinho.getTotal(), DELTA);
+    }
 }
