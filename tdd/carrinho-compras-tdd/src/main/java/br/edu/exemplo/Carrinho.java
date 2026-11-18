@@ -2,11 +2,14 @@ package br.edu.exemplo;
 
 public class Carrinho {
 
+    private double total;
+
     public double getTotal() {
-        return 0;
+        return total;
     }
 
     public void adicionar(Produto produto) {
-        // Esqueleto mínimo só para compilar: ainda não implementado (RED)
+        // Mínimo para o Requisito 2: só existe um produto no carrinho
+        total = produto.getPreco();
     }
 }
