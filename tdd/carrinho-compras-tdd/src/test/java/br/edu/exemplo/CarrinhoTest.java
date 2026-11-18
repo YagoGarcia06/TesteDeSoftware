@@ -78,4 +78,56 @@ class CarrinhoTest {
         assertEquals("Preço não pode ser negativo: Teclado", erro.getMessage());
         assertEquals(0, carrinho.getTotal(), DELTA);
     }
+
+    // Requisito 6 — Desconto de 10% para compras a partir de R$ 500,00
+    @Test
+    @DisplayName("Requisito 6: subtotal de R$ 600,00 recebe 10% de desconto e fica R$ 540,00")
+    void deveAplicarDescontoDeDezPorCentoAcimaDoLimite() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Monitor", 600.00));
+
+        assertEquals(540.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Requisito 6 (fronteira): R$ 499,99 não recebe desconto")
+    void naoDeveAplicarDescontoAbaixoDoLimite() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Cadeira", 499.99));
+
+        assertEquals(499.99, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Requisito 6 (fronteira): exatamente R$ 500,00 recebe desconto e fica R$ 450,00")
+    void deveAplicarDescontoExatamenteNoLimite() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Cadeira", 500.00));
+
+        assertEquals(450.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Requisito 6 (fronteira): R$ 500,01 recebe desconto e fica R$ 450,009")
+    void deveAplicarDescontoLogoAcimaDoLimite() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Cadeira", 500.01));
+
+        assertEquals(450.009, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Requisito 6: desconto considera a soma de vários produtos (300 + 200 = 500)")
+    void deveAplicarDescontoSobreASomaDosProdutos() {
+        Carrinho carrinho = new Carrinho();
+
+        carrinho.adicionar(new Produto("Monitor", 300.00));
+        carrinho.adicionar(new Produto("Teclado", 200.00));
+
+        assertEquals(450.00, carrinho.getTotal(), DELTA);
+    }
 }
