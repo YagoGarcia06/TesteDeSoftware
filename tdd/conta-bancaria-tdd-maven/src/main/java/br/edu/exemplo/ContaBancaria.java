@@ -16,6 +16,10 @@ public class ContaBancaria {
     }
 
     public void sacar(double valor) {
-        // TODO: implementar orientado pelos testes
+        // Saque maior que o saldo é ignorado: o saldo permanece inalterado
+        if (valor > saldo) {
+            return;
+        }
+        saldo -= valor;
     }
 }
