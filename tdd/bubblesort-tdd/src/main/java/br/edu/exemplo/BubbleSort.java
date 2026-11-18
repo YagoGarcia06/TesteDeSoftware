@@ -9,7 +9,16 @@ public class BubbleSort {
     }
 
     public void ordenar() {
-        // TODO: implementar o algoritmo orientado pelos testes
+        // Percorre o vetor várias vezes, trocando pares vizinhos fora de ordem
+        for (int i = 0; i < numeros.length - 1; i++) {
+            for (int j = 0; j < numeros.length - 1; j++) {
+                if (numeros[j] > numeros[j + 1]) {
+                    int aux = numeros[j];
+                    numeros[j] = numeros[j + 1];
+                    numeros[j + 1] = aux;
+                }
+            }
+        }
     }
 
     public int[] getNumeros() {
