@@ -62,4 +62,40 @@ class ProdutoServiceIntegrationTest {
   assertEquals(95.0, atualizado.getPreco(), "O preço persistido deveria ser o novo valor");
   assertEquals("Mouse", atualizado.getNome(), "A atualização de preço não deveria alterar o nome");
  }
+
+ // ---- Testes EXTRAS (além de CT01–CT05), baseados em regras já definidas no ProdutoService ----
+
+ @Test @DisplayName("EXTRA01 - Preço não positivo no cadastro lança IllegalArgumentException e nada é persistido")
+ void naoDevePersistirProdutoComPrecoNaoPositivo(){
+  long antes = repository.count();
+
+  IllegalArgumentException erro = assertThrows(IllegalArgumentException.class,
+   () -> service.cadastrar("Monitor", 0.0));
+  assertEquals("Preço deve ser positivo", erro.getMessage());
+
+  assertEquals(antes, repository.count(), "A contagem de registros não deveria aumentar");
+ }
+
+ @Test @DisplayName("EXTRA02 - Atualização com preço inválido é rejeitada e o preço persistido não muda")
+ void naoDeveAtualizarParaPrecoInvalido(){
+  Long id = service.cadastrar("Mouse", 80.0).getId();
+  sincronizarComBanco();
+
+  assertThrows(IllegalArgumentException.class, () -> service.atualizarPreco(id, -10.0));
+  sincronizarComBanco();
+
+  assertEquals(80.0, repository.findById(id).orElseThrow().getPreco(),
+   "O preço persistido deveria continuar o original");
+ }
+
+ @Test @DisplayName("EXTRA03 - Atualizar produto inexistente lança IllegalArgumentException")
+ void naoDeveAtualizarProdutoInexistente(){
+  long antes = repository.count();
+
+  IllegalArgumentException erro = assertThrows(IllegalArgumentException.class,
+   () -> service.atualizarPreco(999_999L, 50.0));
+  assertEquals("Produto não encontrado", erro.getMessage());
+
+  assertEquals(antes, repository.count(), "Nenhum registro deveria ser criado");
+ }
 }
