@@ -55,7 +55,7 @@ Todos os testes foram escritos por mim (o professor forneceu `CarrinhoTest` vazi
 | `deveAplicarDescontoDeDezPorCentoAcimaDoLimite` | R$ 600 → R$ 540 | 6 |
 | `naoDeveAplicarDescontoAbaixoDoLimite` | fronteira R$ 499,99 → sem desconto | 6 |
 | `deveAplicarDescontoExatamenteNoLimite` | fronteira R$ 500,00 → R$ 450,00 | 6 |
-| `deveAplicarDescontoLogoAcimaDoLimite` | fronteira R$ 500,01 → R$ 450,009 | 6 |
+| `deveAplicarDescontoLogoAcimaDoLimite` | logo acima da fronteira: R$ 500,10 → R$ 450,09 | 6 |
 | `deveAplicarDescontoSobreASomaDosProdutos` | 300 + 200 = 500 → R$ 450 (desconto sobre a soma) | 6 |
 | `removerProdutoAusenteNaoAlteraTotal` | remover produto que não está no carrinho não altera | borda |
 | `removerProdutoRepetidoRetiraApenasUmaUnidade` | produto adicionado 2x, removido 1x → sobra uma unidade | borda |

@@ -111,13 +111,13 @@ class CarrinhoTest {
     }
 
     @Test
-    @DisplayName("Requisito 6 (fronteira): R$ 500,01 recebe desconto e fica R$ 450,009")
+    @DisplayName("Requisito 6 (fronteira): R$ 500,10 recebe desconto e fica R$ 450,09")
     void deveAplicarDescontoLogoAcimaDoLimite() {
         Carrinho carrinho = new Carrinho();
 
-        carrinho.adicionar(new Produto("Cadeira", 500.01));
+        carrinho.adicionar(new Produto("Cadeira", 500.10));
 
-        assertEquals(450.009, carrinho.getTotal(), DELTA);
+        assertEquals(450.09, carrinho.getTotal(), DELTA);
     }
 
     @Test
