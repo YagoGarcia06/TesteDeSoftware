@@ -130,4 +130,79 @@ class CarrinhoTest {
 
         assertEquals(450.00, carrinho.getTotal(), DELTA);
     }
+
+    // ---- Casos de borda adicionados ----
+
+    @Test
+    @DisplayName("Remover produto que não está no carrinho não altera o total")
+    void removerProdutoAusenteNaoAlteraTotal() {
+        Carrinho carrinho = new Carrinho();
+        carrinho.adicionar(new Produto("Teclado", 100.00));
+
+        carrinho.remover(new Produto("Mouse", 50.00));
+
+        assertEquals(100.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Remover produto adicionado duas vezes retira apenas uma unidade")
+    void removerProdutoRepetidoRetiraApenasUmaUnidade() {
+        Carrinho carrinho = new Carrinho();
+        Produto mouse = new Produto("Mouse", 50.00);
+        carrinho.adicionar(mouse);
+        carrinho.adicionar(mouse);
+
+        carrinho.remover(mouse);
+
+        assertEquals(50.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Remover o único produto volta o total para R$ 0,00")
+    void removerUnicoProdutoZeraTotal() {
+        Carrinho carrinho = new Carrinho();
+        Produto teclado = new Produto("Teclado", 100.00);
+        carrinho.adicionar(teclado);
+
+        carrinho.remover(teclado);
+
+        assertEquals(0, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Produto com preço zero é permitido (só o negativo é inválido)")
+    void devePermitirProdutoComPrecoZero() {
+        Carrinho carrinho = new Carrinho();
+        carrinho.adicionar(new Produto("Brinde", 0.00));
+        carrinho.adicionar(new Produto("Teclado", 100.00));
+
+        assertEquals(100.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Produto inválido não afeta os produtos já adicionados")
+    void produtoInvalidoNaoAlteraCarrinhoExistente() {
+        Carrinho carrinho = new Carrinho();
+        carrinho.adicionar(new Produto("Teclado", 100.00));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> carrinho.adicionar(new Produto("Mouse", -50.00)));
+
+        assertEquals(100.00, carrinho.getTotal(), DELTA);
+    }
+
+    @Test
+    @DisplayName("Ao remover produto e o subtotal ficar abaixo de R$ 500,00, o desconto deixa de valer")
+    void removerProdutoPodeRetirarODesconto() {
+        Carrinho carrinho = new Carrinho();
+        Produto monitor = new Produto("Monitor", 460.00);
+        Produto mouse = new Produto("Mouse", 50.00);
+        carrinho.adicionar(monitor);
+        carrinho.adicionar(mouse);
+        assertEquals(459.00, carrinho.getTotal(), DELTA); // 510 - 10%
+
+        carrinho.remover(mouse);
+
+        assertEquals(460.00, carrinho.getTotal(), DELTA); // sem desconto
+    }
 }
