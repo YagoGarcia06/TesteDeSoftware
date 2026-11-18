@@ -18,6 +18,8 @@ A classe `ContaBancaria` está propositalmente incompleta.
 
 ## Resolução
 
+> O texto acima desta seção é o enunciado original do professor e descreve o estado inicial do projeto.
+
 ### Como rodar
 
 ```bash
@@ -26,6 +28,10 @@ mvn test
 ```
 
 Relatório de cobertura (JaCoCo): `target/site/jacoco/index.html`.
+
+### Como o TDD aparece no histórico
+
+Os testes do professor já vieram prontos e falhando: esse foi o RED inicial de cada requisito. Por isso o histórico mostra commits `feat` levando esses testes ao GREEN (alguns agrupando requisitos relacionados), seguidos de `refactor` e dos testes de borda adicionados (`test`).
 
 ### Testes
 
@@ -48,6 +54,13 @@ Relatório de cobertura (JaCoCo): `target/site/jacoco/index.html`.
   pelo teste do professor `naoDevePermitirSaqueMaiorQueSaldo`.
 - Depósito/saque com valor menor ou igual a zero não são citados no README; foram tratados
   como inválidos porque um depósito negativo reduziria o saldo e um saque negativo o aumentaria.
+- O caso "valor zero" não é observável pela API: somar ou subtrair 0 não muda o saldo, então
+  `valor <= 0` e `valor < 0` se comportam igual para os testes. O teste de depósito zero documenta
+  o comportamento, mas não distingue as duas regras.
+
+### Fora do escopo
+
+- Valores `NaN` ou infinitos não são tratados (passariam pela validação e contaminariam o saldo).
 
 ### Cobertura obtida
 

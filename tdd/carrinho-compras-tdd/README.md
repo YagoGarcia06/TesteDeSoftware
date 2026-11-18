@@ -17,6 +17,8 @@ requisito seja convertido em um teste antes de sua implementação.
 
 ## Resolução
 
+> O texto acima desta seção é o enunciado original do professor e descreve o estado inicial do projeto.
+
 ### Como rodar
 
 ```bash
@@ -38,12 +40,12 @@ commits `refactor(carrinho): ...` quando houve refatoração. Veja `git log -- t
 | Método | Comportamento |
 |---|---|
 | `adicionar(Produto)` | adiciona o produto; preço negativo lança `IllegalArgumentException` |
-| `remover(Produto)` | remove uma ocorrência do produto (se não estiver no carrinho, nada muda) |
+| `remover(Produto)` | remove uma ocorrência da mesma instância de `Produto` (a classe não define `equals`); se não estiver no carrinho, nada muda |
 | `getTotal()` | soma dos preços; com 10% de desconto se a soma for ≥ R$ 500,00 |
 
 ### Testes
 
-Todos os testes foram escritos por mim (o professor forneceu `CarrinhoTest` vazio).
+Todos os testes foram criados nesta resolução (o professor forneceu `CarrinhoTest` vazio).
 
 | Teste | O que verifica | Requisito |
 |---|---|---|
@@ -66,14 +68,21 @@ Todos os testes foram escritos por mim (o professor forneceu `CarrinhoTest` vazi
 
 ### Decisões
 
-- **Requisito 5:** optei por **lançar `IllegalArgumentException`** (mensagem
-  `"Preço não pode ser negativo: <nome>"`) em vez de ignorar, para que o erro não passe
-  despercebido; o carrinho permanece inalterado. A validação fica em `Carrinho.adicionar`,
+- **Requisito 5 (decisão própria, a confirmar com o professor, como pede o enunciado):**
+  produto com preço negativo **lança `IllegalArgumentException`** (mensagem
+  `"Preço não pode ser negativo: <nome>"`) em vez de ser ignorado, para que o erro não passe
+  despercebido; o carrinho permanece inalterado. Nos projetos de conta e estoque as operações
+  inválidas são ignoradas porque os próprios testes e requisitos do professor definem esse
+  comportamento; aqui o requisito deixou a escolha em aberto. A validação fica em `Carrinho.adicionar`,
   pois `Produto` foi fornecido pronto e `Carrinho` é a classe da atividade.
 - **Requisito 6:** "igual ou superior a R$ 500,00" → condição `subtotal >= 500`. Os valores
   são `double` (tipo usado por `Produto`), sem arredondamento; os testes comparam com tolerância
   de 0,001.
 - **Remoção:** remove pela mesma instância de `Produto` (a classe não define `equals`).
+
+### Fora do escopo
+
+- `adicionar(null)` e preços `NaN` ou infinitos não são tratados.
 
 ### Cobertura obtida
 

@@ -14,6 +14,8 @@ Consulte `REQUISITOS.md` para a descrição da atividade.
 
 ## Resolução
 
+> O texto acima desta seção é o enunciado original do professor e descreve o estado inicial do projeto.
+
 ### Como rodar
 
 ```bash
@@ -22,6 +24,10 @@ mvn test
 ```
 
 Relatório de cobertura (JaCoCo): `target/site/jacoco/index.html`.
+
+### Como o TDD aparece no histórico
+
+Os testes do professor já vieram prontos e falhando: esse foi o RED inicial de cada requisito. Por isso o histórico mostra commits `feat` levando esses testes ao GREEN (alguns agrupando requisitos relacionados), seguidos de `refactor` e dos testes de borda adicionados (`test`).
 
 ### Testes
 
@@ -41,4 +47,9 @@ Relatório de cobertura (JaCoCo): `target/site/jacoco/index.html`.
 8 testes, todos passando. Classe `BubbleSort`: **100% de linhas, 100% de branches e 100% de instruções** (JaCoCo).
 
 A implementação usa a otimização clássica: cada passada ignora o final já ordenado e o
-algoritmo para assim que uma passada não faz nenhuma troca.
+algoritmo para assim que uma passada não faz nenhuma troca. Essas otimizações afetam só o
+desempenho, não o resultado, por isso não são verificáveis pelos testes, que conferem o vetor final.
+
+### Fora do escopo
+
+- Vetor `null` não é tratado (lança `NullPointerException`).
