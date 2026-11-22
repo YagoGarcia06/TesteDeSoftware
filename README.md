@@ -50,4 +50,4 @@ Para ver a sequência: `git log --reverse --oneline -- tdd/carrinho-compras-tdd`
 | Nome | GitHub | Participação |
 |---|---|---|
 | Yago Garcia do Canto (RA 24011308-2) | [@YagoGarcia06](https://github.com/YagoGarcia06) | Itens 1 e 2 e estrutura do repositório |
-| _(a preencher)_ | _(a preencher)_ | Item 3 — teste de usuário |
+| Guilherme Sousa da Silva (RA 24458923-2) | [@GuiSousa1804](https://github.com/GuiSousa1804) | Item 3 — teste de usuário |
